@@ -13,7 +13,7 @@ struct list {
 
 list_t *list_create()
 {
-
+	return NULL;
 }
 
 void list_destroy(list_t *list)

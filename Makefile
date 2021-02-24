@@ -1,13 +1,12 @@
-SRC = $(wildcard src/*.c)
+EXE := hejsan
+OBJ := hmap.o \
+	list.o \
 
+%.o : src/%.c
+	gcc -std=c11 -c -g -Wall $^ -o $@
 
-build:
-	gcc -std=c11 -g -Wall $(SRC)
-run:
-	valgrind --leak-check=full --track-origins=yes ./a.out
+${EXE} : ${OBJ}
+	gcc -std=c11 -g -Wall $^ test/tests.c -o $@ -lcunit
 
-all:
-	gcc -std=c11 -g -Wall $(SRC) test/tests.c -lcunit
-
-test: all
-	valgrind --leak-check=full --track-origins=yes ./a.out
+run : ${EXE}
+	valgrind --leak-check=full --track-origins=yes ./${EXE}
